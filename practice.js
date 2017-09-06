@@ -1,30 +1,18 @@
-function getStuffFromDatabase(resolve,reject){
-    var data = "whee"
-    setTimeout(function(){
-      // if (typeof(callback) == 'function'){
-        data = [{name:'Todd'},{name:'Michael'},{name:'Portia'}];
-        resolve(data);
-      // }
-    }, 1000);
-    //reject(); comment this line in and out!
-    // return data;
+
+  function Person(name, age){
+  var privateVariable = "This variable is private";
+  var privateMethod = function(){
+      console.log(this);
+  }
+  this.name = name;
+  this.age = age;
+  this.greet = function(){
+      console.log("Hello my name is " + this.name + " and I am " + this.age + " years old!");
+      // we can access our attributes within the constructor!
+      console.log("Also my privateVariable says: " + privateVariable)
+      // we can access our methods within the constructor!
+      privateMethod();
+  }
 }
-function requestDataFromDatabase(){
-  console.log('running');
-  //creates promise
-  var data = new Promise(function(resolve,reject){
-    getStuffFromDatabase(resolve,reject); // kind of like a shiny callback
-  });
-  // if promise is successful (keeps me from putting all the logic in the callback)
-  data.then(function(data){
-    console.log(data, "ASynchronous");
-    for (var i = 0; i < data.length; i ++){
-      console.log(data[i].name);
-    }
-  });
-  data.catch(function(){
-    console.log('failure');
-  })
-  console.log('end');
-}
-requestDataFromDatabase();
+var bob = new Person("Bob", 3);
+bob.greet();
